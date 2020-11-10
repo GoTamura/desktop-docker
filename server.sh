@@ -5,7 +5,7 @@ docker run --privileged -it --rm --gpus all \
   -p 8081:8081 \
   -p 5900:5900 \
   -e VNCPASS=pass \
-  -e RESOLUTION=1280x720 \
+  -e RESOLUTION=1920x1080 \
   -v ${HOME}:/home/ubuntu \
   -v /mnt/HDD:/mnt/HDD \
   -u $(id -u):$(id -g) \
