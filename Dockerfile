@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # Make all NVIDIA GPUS visible, but I want to manually install drivers
 ARG NVIDIA_VISIBLE_DEVICES=all
@@ -8,6 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Error constructing proxy for org.gnome.Terminal:/org/gnome/Terminal/Factory0: Failed to execute child process dbus-launch (No such file or directory)
 # fix by setting LANG https://askubuntu.com/questions/608330/problem-with-gnome-terminal-on-gnome-3-12-2
 # to install locales https://stackoverflow.com/questions/39760663/docker-ubuntu-bin-sh-1-locale-gen-not-found
+RUN sed -i.bak -e "s%http://[^ ]\+%http://ftp.jaist.ac.jp/pub/Linux/ubuntu/%g" /etc/apt/sources.list
 RUN apt-get clean && \
     apt-get update && \
     apt-get install -y locales && \
@@ -87,6 +88,7 @@ RUN cd /tmp && \
 # Note: x11vnc in ubuntu18.04 is useless beacuse of stack smashing bug. See below to manual compilation.
 RUN apt-get update && apt-get install -y --no-install-recommends \
         mesa-utils \
+	x11-xserver-utils \
         x11-apps && \
     rm -rf /var/lib/apt/lists/*
 
@@ -111,6 +113,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get update && apt-get install -y --no-install-recommends \
         firefox openbox && \
     rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	xmonad libghc-xmonad-dev libghc-xmonad-contrib-dev && \
+    rm -rf /var/lib/apt/lists/*
+#RUN sed -e 's/#WaylandEnable=false/WaylandEnable=false/' /etc/gdm3/custom.conf
 
 # sound driver and GTK library
 # If you want to use sounds on docker, try `pulseaudio --start`
@@ -157,4 +164,5 @@ RUN chmod u+s /usr/sbin/useradd \
 # see run.sh for details
 COPY run.sh /run.sh
 COPY user.sh /user.sh
+COPY edid.bin /edid.bin
 CMD ["bash", "/user.sh"]

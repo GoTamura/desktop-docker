@@ -6,7 +6,8 @@ docker run --privileged -it --rm --gpus all \
   -p 5900:5900 \
   -e VNCPASS=pass \
   -e RESOLUTION=1280x720 \
-  -v ${HOME}/container_home:/home/ubuntu \
+  -v ${HOME}:/home/ubuntu \
+  -v /mnt/HDD:/mnt/HDD \
   -u $(id -u):$(id -g) \
   -e USER=ubuntu \
   -e PASSWD=ubuntu \
