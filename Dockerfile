@@ -165,4 +165,5 @@ RUN chmod u+s /usr/sbin/useradd \
 COPY run.sh /run.sh
 COPY user.sh /user.sh
 COPY edid.bin /edid.bin
+COPY .bashrc /.bashrc
 CMD ["bash", "/user.sh"]

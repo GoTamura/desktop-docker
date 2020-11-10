@@ -32,5 +32,7 @@ echo ${USER}:${PASSWD} | sudo chpasswd
 
 #[ ! -e ${HOME}/.xsession ] && cp /etc/skel/.xsession ${HOME}/.xsession
 
+cp /.bashrc ~/.bashrc
+
 bash /run.sh
 /bin/bash

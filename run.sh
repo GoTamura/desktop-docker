@@ -7,8 +7,9 @@ sudo nvidia-xconfig -a --virtual=$RESOLUTION --allow-empty-initial-configuration
 
 # 1. launch X server
 sudo Xorg :0 &
-#sudo startx
 sleep 1  # wait for the server gets ready
+xauth list > ~/.Xauthority
+
 
 # 2. start x11 and vnc connection
 # to inspect logs in detail, use --verbose
@@ -28,5 +29,4 @@ echo 'running noVNC at http://localhost:8081/vnc.html?host=localhost&port=8081'
 
 # 3. start simulator
 export DISPLAY=:0
-xmonad
-#sudo openbox
+openbox
