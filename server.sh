@@ -6,8 +6,8 @@ docker run --privileged -it --rm --gpus all \
   -p 5900:5900 \
   -e VNCPASS=pass \
   -e RESOLUTION=1920x1080 \
-  -v ${HOME}/container_home:/home/ubuntu \
-  -v ${HOME}:/home/ubuntu/host_home \
+  -v ${HOME}/container_home:/home/go \
+  -v ${HOME}:/home/go/host_home \
   -v /mnt/HDD:/mnt/HDD \
   -u $(id -u):$(id -g) \
   -e USER=go \
